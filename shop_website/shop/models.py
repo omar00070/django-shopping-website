@@ -5,10 +5,12 @@ from PIL import Image
 
 class Product(models.Model):
 	name = models.CharField(max_length=200)
-	slug = models.SlugField(max_length=100)
+	slug = models.SlugField(blank=True, max_length=100)
 	description = models.TextField()
 	photo = models.ImageField(upload_to='product_image')
 	price = models.DecimalField(max_digits=10, decimal_places=2)
+	collections = models.ManyToManyField('Collection')
+
 
 	def __str__(self):
 		return f'{self.name} product'

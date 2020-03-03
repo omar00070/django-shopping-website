@@ -17,7 +17,7 @@ class ProductListView(ListView):
 
 class ProductCreateView(CreateView):
 	model = Product
-	fields = ['name', 'price','description', 'photo']
+	fields = ['name', 'price','description', 'photo', 'collections']
 
 	def form_valid(self, form):
 		return super().form_valid(form)
@@ -29,9 +29,8 @@ def about(request):
 
 def collection(request):
 	if request.method == 'POST':
-		form = CollectionCreationForm()
+		form = CollectionCreationForm(request.POST)
 		if form.is_valid():
-			form = CollectionCreationForm(request.POST, instance=request.collection)
 			form.save()
 	else:
 		form = CollectionCreationForm()
