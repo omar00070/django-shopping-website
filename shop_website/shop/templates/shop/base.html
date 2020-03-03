@@ -1,0 +1,124 @@
+{% load static %}
+<html lang="en">
+  	<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'shop/main.css'%}">
+    <style type="text/css">
+    	.alert-success {
+	    color: #ffffff;
+	    background-color: #353a36;
+	    border-color: #525a54;
+		}
+	</style>
+  	</head>
+  	<body>
+	<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+          
+            <a class="navbar-brand mr-2" href="{% url 'profile' %}">
+		      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img" viewBox="0 0 24 24" focusable="false"><title>Product</title><circle cx="12" cy="12" r="10"></circle><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"></path></svg>
+		    </a>
+		    {% if user.is_authenticated %}
+            <a class="navbar-brand mr-4" href="/"><strong>{{user.username}}</strong></a>
+          	{% else %}
+         	<a class="navbar-brand mr-4" href="/"><strong>{{user.username}}</strong></a>
+         	{% endif %}
+          <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar-collapse collapse" id="navbarToggle" style="">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="/">Home</a>
+              <a class="nav-item nav-link" href="/about/">About</a>
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{% url 'product-create'%}">Add Product</a>
+                <a class="nav-item nav-link" href="{% url 'logout' %}?next={% url 'product-list' %} ">Logout</a>
+                {% else %}                
+                <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+    </nav>
+	 {% if messages %}
+	 	{% for message in messages %}
+	 	<div class="container">
+	 	<div class="alert alert-{{message.tags}} alert-dismissible"> {{message}} </div>
+	 	</div>
+	 	{% endfor %}
+	 {% endif %}
+
+	
+		{% block content %}	{% endblock%}
+		
+		<div class="container">	
+		<footer class="pt-4 my-md-5 pt-md-5 border-top">
+			<div class="row">
+			  <div class="col-12 col-md">
+			    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mb-2 text-footer" role="img" viewBox="0 0 24 24" focusable="false"><title>Product</title><circle cx="12" cy="12" r="10"></circle><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"></path></svg>
+			    <small class="d-block mb-3 text-footer">© 2017-2018</small>
+			  </div>
+			  <div class="col-6 col-md">
+			    <h5 class="footer-title">Features</h5>
+			    <ul class="list-unstyled text-small">
+			      <li><a class="text-footer" href="#">Cool stuff</a></li>
+			      <li><a class="text-footer" href="#">Random feature</a></li>
+			      <li><a class="text-footer" href="#">Team feature</a></li>
+			      <li><a class="text-footer" href="#">Stuff for developers</a></li>
+			      <li><a class="text-footer" href="#">Another one</a></li>
+			      <li><a class="text-footer" href="#">Last time</a></li>
+			    </ul>
+			  </div>
+			  <div class="col-6 col-md">
+			    <h5 class="footer-title">Resources</h5>
+			    <ul class="list-unstyled text-small">
+			      <li><a class="text-footer" href="#">Resource</a></li>
+			      <li><a class="text-footer" href="#">Resource name</a></li>
+			      <li><a class="text-footer" href="#">Another resource</a></li>
+			      <li><a class="text-footer" href="#">Final resource</a></li>
+			    </ul>
+			  </div>
+			  <div class="col-6 col-md">
+			    <h5 class="footer-title">About</h5>
+			    <ul class="list-unstyled text-small">
+			      <li><a class="text-footer" href="#">Team</a></li>
+			      <li><a class="text-footer" href="#">Locations</a></li>
+			      <li><a class="text-footer" href="#">Privacy</a></li>
+			      <li><a class="text-footer" href="#">Terms</a></li>
+			    </ul>
+			  </div>
+			</div>
+		</footer>
+		</div>
+	    <!-- Optional JavaScript -->
+	    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  	</body>
+</html>
+
+
+<!-- 
+
+	  	<nav class="site-header sticky-top py-1">
+		  <div class="container d-flex flex-column flex-md-row justify-content-between">
+		    
+		    <a class="py-2 d-none d-md-inline-block" href="#">Tour</a>
+		    <a class="py-2 d-none d-md-inline-block" href="#">Product</a>
+		    <a class="py-2 d-none d-md-inline-block" href="#">Features</a>
+		    <a class="py-2 d-none d-md-inline-block" href="#">Enterprise</a>
+		    <a class="py-2 d-none d-md-inline-block" href="#">Support</a>
+		    <a class="py-2 d-none d-md-inline-block" href="#">Pricing</a>
+		    <a class="py-2 d-none d-md-inline-block" href="#">Cart</a>
+		  </div>
+		</nav> -->
